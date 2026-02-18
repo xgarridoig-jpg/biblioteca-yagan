@@ -1,0 +1,39 @@
+{% extends 'libros/base.html' %}
+
+{% block content %}
+
+<h2>Colección de Libros</h2>
+
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'crear_libro' %}" class="action-link">
+        + Agregar Nuevo Ejemplar
+    </a>
+</div>
+
+<ul class="book-list">
+    {% for libro in libros %}
+        <li class="book-item">
+            <div class="book-info">
+                <strong>{{ libro.titulo }}</strong>
+                <span class="book-details">
+                    {{ libro.autor }} &bull; <span style="font-style: italic;">{{ libro.anio }}</span>
+                </span>
+            </div>
+            
+            <div class="book-actions">
+                <a href="{% url 'editar_libro' libro.id %}">
+                    <button class="secondary btn-icon" title="Editar">Editar</button>
+                </a>
+                <a href="{% url 'eliminar_libro' libro.id %}">
+                    <button class="danger btn-icon" title="Eliminar">✕</button>
+                </a>
+            </div>
+        </li>
+    {% empty %}
+        <li style="text-align: center; color: #777; padding: 40px;">
+            Aún no hay libros registrados en la colección.
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

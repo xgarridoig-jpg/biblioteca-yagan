@@ -1,0 +1,21 @@
+{% extends 'libros/base.html' %} 
+
+{% block content %}
+
+<h2>Registro de Ejemplar</h2>
+
+<form method="POST">
+  {% csrf_token %} 
+  
+  <!-- Renderizado automático de Django, los inputs tomarán el estilo CSS global -->
+  {{ form.as_p }}
+
+  <div style="margin-top: 40px; display: flex; justify-content: flex-end; gap: 10px;">
+    <a href="{% url 'listar_libros' %}">
+        <button type="button" class="secondary">Cancelar</button>
+    </a>
+    <button type="submit">Guardar Cambios</button>
+  </div>
+</form>
+
+{% endblock %}
