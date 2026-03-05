@@ -1,222 +1,101 @@
-# 🌿 Biblioteca Yagan
+# Biblioteca Yagán — Sistema de Gestión Bibliográfica
 
-### Módulo 7 — Actividad 6
-
-**Implementación de CRUD con Django**
-
----
-
-## 👩‍💻 Autoría
-
-**Ximena Garrido**
-Año 2026
-
-Proyecto desarrollado como parte de la **Actividad 6 del Módulo 7**, cuyo objetivo es implementar un sistema CRUD funcional utilizando Django.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square\&logo=python\&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.x-092E20?style=flat-square\&logo=django\&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=flat-square\&logo=postgresql\&logoColor=white)
 
 ---
 
-## 🎯 Objetivo de la Actividad
+## Descripción
 
-Desarrollar una aplicación web que permita gestionar libros mediante las cuatro operaciones fundamentales:
+**Biblioteca Yagán** es una aplicación web desarrollada con **Django** orientada a la gestión de registros bibliográficos.
 
-* Create (Crear)
-* Read (Listar)
-* Update (Editar)
-* Delete (Eliminar)
+El proyecto implementa un modelo relacional para organizar información sobre libros y sus atributos utilizando **PostgreSQL** como base de datos y el **ORM de Django** para la interacción con los datos.
 
-Aplicando:
-
-* Modelos en Django
-* Migraciones
-* Vistas CRUD
-* URLs con parámetros dinámicos
-* Templates con herencia
-* Protección CSRF
+La aplicación está construida siguiendo la arquitectura **MTV (Model–Template–View)** del framework y permite realizar operaciones básicas de administración y gestión de catálogo.
 
 ---
 
-# 🧱 Modelo Implementado
+## Características
 
-```python
-class Libro(models.Model):
-    titulo = models.CharField(max_length=100)
-    autor = models.CharField(max_length=50)
-    anio = models.IntegerField()
-```
-
-![Modelo](evidencias/image-6.png)
-
-Este modelo permite almacenar la información básica de cada libro en la base de datos.
+* Registro y administración de libros
+* Edición y eliminación de registros
+* Gestión de datos mediante **Django Admin**
+* Persistencia de datos utilizando **PostgreSQL**
+* Consultas y relaciones gestionadas mediante **Django ORM**
+* Organización del proyecto siguiendo las convenciones de Django
 
 ---
 
-# 📚 Desarrollo de la Actividad
+## Stack tecnológico
 
-## • ¿Cómo funciona el flujo completo de una operación CRUD?
-
-El flujo CRUD se desarrolla en cuatro etapas principales:
-
-### 🔹 Create (Crear)
-
-* Acceso a `/libros/crear/`
-* Visualización de formulario
-* Envío mediante POST
-* Validación y guardado en base de datos
-* Redirección al listado
-
-### 🔹 Read (Listar)
-
-* Acceso a `/libros/`
-* Consulta con `Libro.objects.all()`
-* Envío de datos al template
-* Visualización de registros
-
-### 🔹 Update (Editar)
-
-* Acceso a `/libros/editar/<int:id>/`
-* Obtención del libro con `get_object_or_404`
-* Carga de datos en el formulario
-* Guardado de cambios
-* Redirección al listado
-
-### 🔹 Delete (Eliminar)
-
-* Acceso a `/libros/eliminar/<int:id>/`
-* Vista de confirmación
-* Eliminación mediante POST
-* Redirección al listado
-
-🔒 Todas las operaciones POST están protegidas con `{% csrf_token %}`.
+* **Python**
+* **Django**
+* **PostgreSQL**
+* **Django ORM**
+* **Git**
 
 ---
 
-## • ¿Qué aprendiste sobre el enrutamiento y los parámetros dinámicos en URLs?
-
-### 🔹 Enrutamiento
-
-* Se define mediante `path()`.
-* Permite asociar cada URL con una vista específica.
-* Organiza la estructura de navegación del sistema.
-
-### 🔹 Parámetros dinámicos
-
-Ejemplo:
-
-```python
-path('libros/editar/<int:id>/', views.editar_libro, name='editar_libro')
-```
-
-* `<int:id>` captura el identificador desde la URL.
-* Permite trabajar con un registro específico.
-* Es fundamental para editar o eliminar datos concretos.
-
-### 🔹 Uso de `{% url %}`
-
-* Genera enlaces dinámicos.
-* Evita escribir rutas manualmente.
-* Mejora la mantenibilidad del código.
-
----
-
-# 📂 Estructura del Proyecto
+## Arquitectura del proyecto
 
 ```
-m7-16-libreria/
+biblioteca-yagan/
 │
-├── yagan/
-│   ├── manage.py
-│   ├── libros/
+├── biblioteca/
+│   ├── biblioteca/
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── ...
+│   │
+│   ├── catalogo/
+│   │   ├── migrations/
 │   │   ├── models.py
 │   │   ├── views.py
-│   │   ├── forms.py
-│   │   ├── urls.py
+│   │   ├── admin.py
 │   │   ├── templates/
 │   │   └── static/
-│   └── yagan/
-│       ├── settings.py
-│       └── urls.py
+│   │
+│   └── manage.py
 │
-└── README.md
+└── evidencias/
 ```
 
----
-
-# 📸 Evidencias de la Actividad
-
-## 🔹 1. Listado de Libros
-
-![Listado](evidencias/image.png)
+La aplicación principal es **catalogo**, donde se definen los modelos y la lógica de negocio relacionada con la gestión del catálogo bibliográfico.
 
 ---
 
-## 🔹 2. Formulario de Creación
+## Instalación y ejecución
 
-![Crear](evidencias/image-1.png)
+### Requisitos
 
----
-
-## 🔹 3. Edición de Registro
-
-![Editar](evidencias/image-2.png)
+* Python 3
+* PostgreSQL
 
 ---
 
-## 🔹 4. Confirmación de Eliminación
-
-![Eliminar](evidencias/image-3.png)
-
----
-
-## 🔹 5. Rutas con Parámetros Dinámicos
-
-![URL Dinámica](evidencias/image-4.png)
-![Código URL](evidencias/image-5.png)
-
-**Descripción:**
-Se utiliza `<int:id>` en `urls.py` para capturar el identificador del libro desde la URL. Esto permite editar o eliminar un registro específico, como se observa en la ruta `/libros/editar/10/`, donde el número corresponde al ID del libro en la base de datos.
-
----
-
-# 🏁 Conclusión
-
-La Actividad 6 del Módulo 7 permitió implementar correctamente un sistema CRUD en Django, aplicando modelos, migraciones, vistas, rutas dinámicas, templates con herencia y protección CSRF, manteniendo una estructura clara y organizada.
-
----
-
-# 🚀 Instalación y Ejecución del Proyecto
-
-Sigue estos pasos para ejecutar el proyecto en tu entorno local:
-
-## 1️⃣ Clonar el repositorio
+### 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/xgarridoig-jpg/m7-l6-libreria.git
-cd m7-16-libreria
+git clone https://github.com/xgarridoig-jpg/biblioteca-yagan.git
+cd biblioteca-yagan
 ```
 
 ---
 
-## 2️⃣ Crear y activar entorno virtual
+### 2. Crear entorno virtual
 
 ```bash
 python -m venv venv
-```
-
-En Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-En macOS/Linux:
-
-```bash
 source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
 ```
 
 ---
 
-## 3️⃣ Instalar dependencias
+### 3. Instalar dependencias
 
 ```bash
 pip install -r requirements.txt
@@ -224,7 +103,17 @@ pip install -r requirements.txt
 
 ---
 
-## 4️⃣ Aplicar migraciones
+### 4. Configurar base de datos
+
+Crear una base de datos en PostgreSQL y ajustar las credenciales en:
+
+```
+settings.py
+```
+
+---
+
+### 5. Ejecutar migraciones
 
 ```bash
 python manage.py makemigrations
@@ -233,20 +122,45 @@ python manage.py migrate
 
 ---
 
-## 5️⃣ Ejecutar el servidor
+### 6. Ejecutar servidor
 
 ```bash
 python manage.py runserver
 ```
 
-Abrir en el navegador:
+Aplicación disponible en:
 
 ```
-http://127.0.0.1:8000/libros/
+http://127.0.0.1:8000/
+```
+
+Panel administrativo:
+
+```
+http://127.0.0.1:8000/admin/
 ```
 
 ---
 
-**© 2026 — Biblioteca Yagan**
-Desarrollado por **Ximena Garrido** 🌿
+## Proyección del proyecto
+
+La estructura actual permite extender el sistema hacia funcionalidades como:
+
+* gestión de autores y editoriales
+* control de préstamos
+* búsqueda avanzada de catálogo
+* generación de reportes de inventario
+
+---
+
+## Autora
+
+**Ximena Garrido**
+Backend Developer
+
+Portafolio
+[https://xgarridoig-jpg.github.io/](https://xgarridoig-jpg.github.io/)
+
+LinkedIn
+[https://www.linkedin.com/in/xpgarrido/](https://www.linkedin.com/in/xpgarrido/)
 
